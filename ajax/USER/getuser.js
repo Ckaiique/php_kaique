@@ -40,6 +40,7 @@ $(document).ready(function() {
 			type: "POST",
 			cache: false,
 			data:{
+				func:'user',
 				id:       $('#id').val(),
 				name:     $('#name').val(),
 				mensagem: $('#mensagem').val(),

@@ -1,28 +1,25 @@
 <?php 
-$nome     = $_POST['name'];
-$senha    = $_POST['pass'];
-$mensagem = $_POST['mensagem'];
-$versao   = $_POST['versao'];
-$id       = $_POST['id'];
-updateuser($nome,$senha,$mensagem,$versao,$id);
+/**
+ * para poder usar essa class update o params tem que passar na ordem 
+ * exemplo DENTROI DA CLASSE ESTA DESSE JEITO
+ * $params = ['NOME'     => $_POST['name'],
+ *            'SENHA'    => $_POST['pass'],
+ *            'MENSAGEM' => $_POST['mensagem'],
+ *            'DATA'     => $_POST['versao'],
+ *            'ID'       => $_POST['id'],
+ *            'FUNC'     => $_POST['func']];
+ * 
+ */
 
-function updateuser($nome,$senha,$mensagem,$versao,$id){
-    require_once("conexao.php");
-       $conn = new CONEXAO ("user");
-       $con = $conn->getConnection();
+$params = ['NOME'     => $_POST['name'] ,
+           'SENHA'    => $_POST['pass'],
+           'EMAIL'    => $_POST['mensagem'],
+           'DATA'     => $_POST['versao'],
+           'ID'       => $_POST['id'],
+           'FUNC'     => $_POST['func']];
 
-       $sql ="UPDATE `login` SET Nome = :Nome ,Senha = :Senha, Mensagem = :Mensagem, Atualizar = :versao WHERE ID = :ID ";
-
-       $stmt = $con->prepare($sql);
-       $stmt->bindParam(':Nome',$nome);
-       $stmt->bindParam(':Senha',$senha);
-       $stmt->bindParam(':Mensagem',$mensagem);
-       $stmt->bindParam(':versao',$versao);
-       $stmt->bindParam(':ID',$id);
-      
-       if($stmt->execute())
-        echo json_encode(array("statusCode"=>200));
-       else 
-        echo json_encode(array("statusCode"=>201));  
-
- }
+if($params['FUNC'] == 'user'){
+include("Update.php");
+$user = new Update($params);
+$user->getUpdate('login','ID','Nome','Senha','Mensagem','Atualizar');
+}
