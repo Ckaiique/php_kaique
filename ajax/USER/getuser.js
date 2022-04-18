@@ -10,14 +10,27 @@
 
 
 $(document).ready(function() {
-	$.ajax({
-        url: "PHP/selectuser.php",
-        type: "POST",
-        cache: false,
-        success: function(data){
-            $('#table').html(data); 
-        }
-	});
+	function ajax(){
+		var req = new XMLHttpRequest();
+		req.onreadystatechange = function(){
+			if(req.readyState == 4 && req.status == 200){
+				document.getElementById('table').innerHTML = req.responseText;
+			}
+		}
+		req.open('GET','PHP/selectuser.php',true);
+		req.send();
+	}
+	setInterval(function(){ajax();},1000);
+	
+	
+	// $.ajax({
+    //     url: "PHP/selectuser.php",
+    //     type: "POST",
+    //     cache: false,
+    //     success: function(data){
+    //         $('#table').html(data); 
+    //     }
+	// });
 	$(function () {
 		$('#update_country').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget); /*Button that triggered the modal*/

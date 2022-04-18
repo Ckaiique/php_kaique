@@ -4,8 +4,7 @@ function getUser(){
         $conn = new CONEXAO ("user");
         $con = $conn->getConnection();
         
-        $sql = "SELECT ID,Nome,Senha,Ativo,Mensagem,Atualizar 
-        FROM login
+        $sql = "SELECT ID,Nome,Senha,Ativo,Mensagem,Atualizar  FROM login
         WHERE 1=1 ORDER BY ID ";
         
         
@@ -16,12 +15,11 @@ function getUser(){
         return $pessoaArray ;
         }
 
-$getuser = getUser();
-
+        $getuser = getUser();
 
 if(isset($getuser)){
         foreach($getuser as $v){
-                        
+    
 ?>
         <tr>
             <td><?= isset($v['ID'])       && $v['ID']         ? $v['ID']       : '';?></td>
@@ -37,7 +35,7 @@ if(isset($getuser)){
 			data-versao   = "<?= isset($v['Atualizar'])&& $v['Atualizar']? $v['Atualizar']: '';?>"
 			data-pass     = "<?= isset($v['Senha'])    && $v['Senha']    ? $v['Senha']    : '';?>"  
                         ">Edit</button></td>
-                      
+                        
         </tr>
 <?php
         }
